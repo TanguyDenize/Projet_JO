@@ -1,0 +1,32 @@
+{% extends "base.html.twig" %}
+{% form_theme formView 'bootstrap_4_layout.html.twig' %}
+
+{% block title %}
+	Modification d'une offre
+{% endblock %}
+
+{% block body %}
+	<h1>Modifier une offre</h1>
+
+	{{form_start(formView)}}
+
+	{{form_errors(formView)}}
+
+	<div class="row">
+		<div class="col">
+			{{form_row(formView.name)}}
+			{{form_row(formView.price)}}
+		</div>
+		<div class="col">
+			{{form_row(formView.picture)}}
+			{{form_row(formView.description)}}
+		</div>
+	</div>
+
+	<button type="submit" class="btn btn-primary">
+		Modifier l'offre
+	</button>
+
+	{{form_end(formView)}}
+	<br>
+{% endblock %}

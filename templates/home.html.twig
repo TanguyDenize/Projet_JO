@@ -1,0 +1,140 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+	Accueil
+{% endblock %}
+
+{% block body %}
+	<div id="carouselExampleIndicators" class="carousel slide mb-4" data-ride="carousel">
+		<ol class="carousel-indicators">
+			<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+			<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+			<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+		</ol>
+		<div class="carousel-inner">
+			<div class="carousel-item active">
+				<img class="d-block w-100 h-10" src="{{ asset('pictures/Img_france.jpg') }}" alt="First slide">
+				<div class="carousel-caption d-none d-md-block">
+					<h5>La France à l'honneur</h5>
+					<p>Découvrez la France des jeux olympiques, comme vous ne l'avez jamais vu</p>
+				</div>
+			</div>
+			<div class="carousel-item">
+				<img class="d-block w-100 h-10" src="{{ asset('pictures/Img_epreuves.png') }}" alt="Second slide">
+				<div class="carousel-caption d-none d-md-block">
+					<h5>Les épreuves</h5>
+					<p>Cliquez pour découvrir les épreuves palpitantes qui vous attendent !</p>
+				</div>
+			</div>
+			<div class="carousel-item">
+				<img class="d-block w-100 h-10" src="{{ asset('pictures/Img_billetterie.jpg') }}" alt="Third slide">
+				<div class="carousel-caption d-none d-md-block">
+					<h5>Billetterie</h5>
+					<p>Réservez vos places des maintenant pour les jeux olympiques de Paris 2024 !</p>
+				</div>
+			</div>
+		</div>
+		<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			<span class="sr-only">Previous</span>
+		</a>
+		<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+			<span class="carousel-control-next-icon" aria-hidden="true"></span>
+			<span class="sr-only">Next</span>
+		</a>
+	</div>
+
+	<hr>
+
+	<div class="bg-primary text-white mt-4 p-4">
+		<div class="row align-items-center">
+			<div class="col">
+				<h3>La France à l'honneur</h3>
+				<p>Paris s'apprête à accueillir le plus grand événement sportif jamais organisé en France, les Jeux Olympiques. Pour la première fois, vous pouvez accéder à une hospitalité exclusive sur les sites de compétition, avec trois offres imaginées pour répondre à vos envies et correspondre à votre budget. Des forfaits séjours sont également disponibles.</p>
+				<p>Paris obtient officiellement l'organisation des Jeux olympiques de 2024, cent ans après les avoir vus pour la dernière fois. Cet accord est validé officiellement lors de la 131e session du Comité international olympique qui a lieu à Lima au Pérou le 13 septembre 2017.</p>
+				<p>Ainsi, la Cérémonie d'ouverture aura lieu sur la Seine
+					<strong>le 26 Juillet 2024</strong>, au coeur de la ville hôte. Vivez cet évènement exceptionnel avec vos invités en profitant d'un accès rapide au site, d'une hospitalité haut de gamme et de places offrant une vue imprenable sur Paris et les célébrations.</p>
+			</div>
+			<div class="col">
+				<img src="{{ asset('pictures/Img_tour_eiffel.jpg') }}" class="img-fluid" alt="Image Paris tour Eiffel">
+			</div>
+		</div>
+	</div>
+
+	<hr>
+
+	<h3 class="mt-5">Les épreuves à venir</h3>
+	<ul class="mb-5">
+		<li>
+			<a href="#ballSports">Sports de ballon</a>
+		</li>
+		<br>
+		<li>
+			<a href="#waterSports">Sports aquatiques</a>
+		</li>
+		<br>
+		<li>
+			<a href="#racketSports">Sports de raquette</a>
+		</li>
+	</ul>
+
+
+	<hr>
+
+	<h4 id="ballSports">Sports de ballon</h4>
+
+	{% include "shared/tabs.html.twig" with {
+		'sport1' : 'football',
+		'text1' : "Le football, le sport le plus populaire au monde, trouve sa place dans l'arène olympique où les nations se disputent pour l'or. Les Jeux Olympiques offrent une plateforme unique où les jeunes talents émergents se confrontent aux légendes du jeu dans des matchs intenses et mémorables. Le stade mythique accueillera les foules passionnées, tandis que les équipes rivaliseront pour le titre ultime de champion olympique. La date de l'épreuve de football est fixée au 30 juillet 2024, marquant le début d'une aventure footballistique inoubliable à Paris.",
+		'href1' : 'football',
+		'srcImg1' : asset('pictures/Img_football.jpg') ,
+	
+		'sport2' : 'Rugby',
+			'text2' : "Le rugby, un sport d'intensité et de camaraderie, fait vibrer les foules lors des Jeux Olympiques. Les rugbymen et rugbymen s'apprêtent à affronter des adversaires redoutables dans des matchs épiques de force et de stratégie. Le stade résonnera des chants des supporters tandis que les équipes se lancent dans une bataille pour la médaille d'or olympique. L'épreuve de rugby débutera le 28 juillet 2024, promettant des moments de pure excitation et d'héroïsme sur le terrain.",
+			'href2' : 'rugby',
+			'srcImg2' : asset('pictures/Img_rugby.jpg'),
+	
+			'sport3' : 'Volleyball',
+			'text3' : "Le volleyball, un sport dynamique et spectaculaire, prend vie sur le sable doré des Jeux Olympiques. Les équipes de volleyball de plage s'affronteront dans des matchs enflammés sous le soleil éclatant de Paris. Les compétitions de volleyball en salle offriront des spectacles de puissance et d'agilité dans des arènes électrisées par l'énergie des supporters. L'épreuve de volleyball débutera le 29 juillet 2024, offrant des moments de jeu époustouflants et des sensations fortes à chaque passe, smash et bloc.",	
+			'href3' : 'volleyball',
+			'srcImg3' : asset('pictures/Img_volleyball.jpg'),
+		} %}
+
+	<h4 id="waterSports">Sports aquatiques</h4>
+	{% include "shared/tabs.html.twig" with {
+		'sport1' : 'Natation',
+		'text1' : "La natation, l'un des sports les plus captivants et emblématiques des Jeux Olympiques, attire l'attention du monde entier, offrant un spectacle d'endurance, de vitesse et de technique. Dans le cadre majestueux du centre aquatique de Paris, les athlètes s'élanceront dans diverses épreuves à compter du 28 juillet 2024.",
+		'href1' : 'natation',
+		'srcImg1' : asset('pictures/Img_natation.jpg'),
+
+		'sport2' : 'Waterpolo',
+		'text2' : "Le water-polo, un mélange d'endurance, de stratégie et de force brute, est au cœur des Jeux Olympiques aquatiques. Les équipes se disputent le contrôle du ballon dans des matchs intenses et physiques, luttant pour chaque but et chaque avantage tactique. Le bassin olympique devient l'arène où les champions émergent, prêts à se battre pour la gloire et la médaille d'or. L'épreuve de water-polo débutera le 27 juillet 2024, promettant des confrontations aquatiques palpitantes et des moments de victoire inoubliables.",
+		'href2' : 'waterpolo',
+		'srcImg2' : asset('pictures/Img_waterpolo.jpg'),
+
+		'sport3' : 'Natation artistique',
+		'text3' : "La natation artistique, une fusion gracieuse de danse et de gymnastique dans l'eau, éblouit les spectateurs des Jeux Olympiques. Les athlètes exécutent des routines élégantes et synchronisées, créant des tableaux aquatiques captivants. Le bassin olympique deviendra une scène de grâce et de beauté où les compétitrices rivaliseront pour la perfection artistique. L'épreuve de natation artistique débutera le 31 juillet 2024, plongeant le public dans un monde de grâce et d'harmonie aquatique.",	
+		'href3' : 'artistique',
+		'srcImg3' : asset('pictures/Img_artistique.jpeg'),
+	} %}
+
+	<h4 id="racketSports">Sports de raquette</h4>
+	{% include "shared/tabs.html.twig" with {
+		'sport1' : 'Tennis',
+		'text1' : "Le tennis, un sport de grâce et de puissance, trouve sa place dans le cadre prestigieux des Jeux Olympiques. Les meilleurs joueurs et joueuses du monde se réunissent pour rivaliser sur les courts en terre battue, offrant des matchs épiques et des échanges passionnants. Les foules se rassemblent pour voir des performances de classe mondiale et des moments de pure magie tennistique. L'épreuve de tennis débutera le 26 juillet 2024, marquant le début d'une quinzaine de jours remplie de volées, d'as et de suspense à Paris.",
+		'href1' : 'tennis',
+		'srcImg1' : asset('pictures/Img_tennis.jpg'),
+
+		'sport2' : 'Tennis de table',
+		'text2' : "Le tennis de table, un sport de vitesse, de précision et de réflexes, apporte son énergie électrique aux Jeux Olympiques. Les joueurs se défient dans des échanges rapides et effrénés, repoussant les limites de l'agilité et de la concentration. Les amateurs de ping-pong du monde entier convergent vers les tables olympiques pour assister à des duels exaltants et à des coups de maître inattendus. L'épreuve de tennis de table débutera le 26 juillet 2024, promettant des moments de frénésie et d'exploits au rythme effréné.",
+		'href2' : 'pingpong',
+		'srcImg2' : asset('pictures/Img_pingpong.jpg'),
+
+		'sport3' : 'Badminton',
+		'text3' : "Le badminton, un sport de rapidité et de finesse, prend son envol aux Jeux Olympiques. Les joueurs s'affrontent sur le court avec agilité et précision, envoyant le volant voler à travers le filet dans des échanges palpitants. Les spectateurs sont captivés par la vitesse des déplacements et la précision des coups, créant une atmosphère électrique dans le stade. L'épreuve de badminton débutera le 27 juillet 2024, offrant des moments de suspense et d'excitation alors que les meilleurs joueurs du monde se disputent la médaille d'or olympique.",	
+		'href3' : 'badminton',
+		'srcImg3' : asset('pictures/Img_badminton.jpg'),
+	} %}
+
+
+{% endblock %}

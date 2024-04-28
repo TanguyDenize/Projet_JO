@@ -1,0 +1,32 @@
+{% extends "base.html.twig" %}
+{% form_theme formView 'bootstrap_4_layout.html.twig' %}
+
+{% block title %}
+	Création d'une offre
+{% endblock %}
+
+{% block body %}
+	<h1>Nouvelle offre</h1>
+
+	{{form_start(formView)}}
+
+	{{form_errors(formView)}}
+
+	<div class="row">
+		<div class="col">
+			{{form_row(formView.name)}}
+			{{form_row(formView.price)}}
+		</div>
+		<div class="col">
+			{{form_row(formView.picture)}}
+			{{form_row(formView.description)}}
+		</div>
+	</div>
+
+	<button type="submit" class="btn btn-primary">
+		Creer l'offre
+	</button>
+
+	{{form_end(formView)}}
+	<br>
+{% endblock %}
