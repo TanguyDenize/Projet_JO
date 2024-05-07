@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Ramsey\Uuid\Uuid;
-
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -34,11 +34,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255)]
     private ?string $userKey = null;
+    private $encoder;
 
-    public function __construct()
+    public function __construct(UserPasswordHasherInterface $encoder)
     {
         $uuid = Uuid::uuid4();
         $this->userKey = substr($uuid->toString(), 0, 10);
+
+        $this->encoder = $encoder;
     }
 
     public function getId(): ?int
@@ -97,7 +100,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setPassword(string $password): static
     {
-        $this->password = $password;
+        $hash = $this->encoder->hashPassword($this, $password);
+        $this->password = $hash;
 
         return $this;
     }

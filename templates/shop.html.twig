@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block body %}
+
 	<h1>Billeterie</h1>
 
 	{#Cartes des offres#}
@@ -21,7 +22,7 @@
 							&euro;
 						</span>
 						<p class="card-text">{{o.description}}</p>
-						<a href="#" class="btn btn-primary btn-sm">Ajouter au panier</a>
+						<a href="{{ path('cart_add', {'id': o.id}) }}" class="btn btn-primary btn-sm">Ajouter au panier</a>
 					</div>
 				</div>
 			</div>
