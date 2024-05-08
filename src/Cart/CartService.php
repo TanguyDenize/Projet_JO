@@ -17,7 +17,7 @@ class CartService {
         $this->offerRepository = $offerRepository;
     }
 
-
+// Fonction ajouter une offre au panier
     public function add(int $id)
     {
         // Trouve le panier sous forme de tableau dans la session ou creer un tableau vide si il nexiste pas
@@ -35,6 +35,7 @@ class CartService {
 
     }
 
+    //Fonction supprimer une offre du panier
     public function remove(int $id)
     {
         $cart = $this->session->get('cart', []);
@@ -44,6 +45,7 @@ class CartService {
         $this->session->set('cart', $cart);
     }
 
+    //Fonction décrémenté une offre dans le panier
     public function decrement(int $id)
     {
         $cart = $this->session->get('cart',[]);
@@ -64,7 +66,7 @@ class CartService {
         $this->session->set('cart', $cart);
     }
 
-
+    // Calcul du prix total pour chaque offre du panier
     public function getTotal()
     {
         $total = 0;
@@ -83,6 +85,7 @@ class CartService {
         return $total;
     }
 
+    // Calcul du nombre total d'offres dans le panier
     public function getTotalItems()
     {
         $totalItems = 0;
