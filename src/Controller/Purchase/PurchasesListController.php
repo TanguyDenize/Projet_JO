@@ -10,7 +10,6 @@ use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class PurchasesListController extends AbstractController
 {
@@ -18,14 +17,24 @@ class PurchasesListController extends AbstractController
     protected $router;
     protected $twig;
 
+    public function __construct(RouterInterface $router)
+    {
+        $this->router = $router;
+    }
+
     /**
      * @Route("/purchases", name="purchase_index")
-     * @IsGranted("ROLE_USER")
      */
     public function index()
     {
         /** @var User */
         $user = $this->getUser();
+
+        if(!$user)
+        {
+            $url = $this->router->generate('security_login');
+            return new RedirectResponse($url);
+        }
 
         // Affichage des commandes de l'utilisateur qui est connecté
         return $this->render('purchase/index.html.twig', [ 

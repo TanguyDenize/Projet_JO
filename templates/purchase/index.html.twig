@@ -11,8 +11,8 @@
 		<thead>
 			<tr>
 				<th>N° de commande</th>
-				<th>Email</th>
 				<th>Date de commande</th>
+				<th>Offres</th>
 				<th>Total</th>
 			</tr>
 		</thead>
@@ -20,8 +20,18 @@
 			{% for p in purchases %}
 				<tr>
 					<td>{{ p.id }}</td>
-					<td>{{ p.email }}</td>
-					<td>...</td>
+					<td>{{ p.purchasedAt | date('d/m/Y H:i') }}</td>
+					<td>
+						<ul>
+							{% for item in p.purchaseItems %}
+								<li>{{ item.quantity }}x
+									{{ item.offerName }}
+									({{ item.total / 100}}
+									€)
+								</li>
+							{% endfor %}
+						</ul>
+					</td>
 					<td>{{ p.total / 100 }}
 						€</td>
 				</tr>
