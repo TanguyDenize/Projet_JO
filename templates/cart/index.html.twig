@@ -47,6 +47,17 @@
 				</tr>
 			</tfoot>
 		</table>
+		<br>
+		{% if app.user %}
+			<form action="{{ path('purchase_confirm') }}" method="post" class="text-right">
+				<button type="submit" class="btn btn-success">Valider la commande</button>
+			</form>
+		{% else %}
+			<h2>Vous devez être connecté pour confirmer cette commande</h2>
+			<a href="{{ path('security_login') }}" class="btn btn-primary">Connectez-vous</a>
+			ou
+			<a href="{{ path('user_register') }}">creez un compte</a>
+		{% endif %}
 	{% else %}
 		<hr>
 		<br>

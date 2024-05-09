@@ -36,6 +36,9 @@ class Purchase
     #[ORM\OneToMany(targetEntity: PurchaseItem::class, mappedBy: 'purchase', orphanRemoval: true)]
     private Collection $purchaseItems;
 
+    #[ORM\Column(length: 255)]
+    private ?string $email = null;
+
     public function __construct()
     {
         $this->purchaseItems = new ArrayCollection();
@@ -132,6 +135,18 @@ class Purchase
                 $purchaseItem->setPurchase(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): static
+    {
+        $this->email = $email;
 
         return $this;
     }

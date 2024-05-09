@@ -105,7 +105,9 @@ class CartService {
 
     }
 
-
+    /**
+     *  @return CartItem[]
+     */
     public function getDetailedCartItems(): array 
     {
         //ordonne le panier en plusieurs tableaux contenant les infos et la quantité de chaque offre
@@ -123,5 +125,10 @@ class CartService {
         }
 
         return $detailedCart;
+    }
+
+    public function clearCart() : void
+    {
+        $this->session->remove('cart');
     }
 }
