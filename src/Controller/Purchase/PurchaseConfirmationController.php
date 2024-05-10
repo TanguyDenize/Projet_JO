@@ -2,28 +2,23 @@
 
 namespace App\Controller\Purchase;
 
-use App\Cart\CartService;
 use App\Entity\Purchase;
+use App\Cart\CartService;
 use App\Entity\PurchaseItem;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PurchaseConfirmationController extends AbstractController
 {
-    protected $security;
     protected $cartService;
     protected $router;
     protected $em;
     
-    public function __construct(Security $security, CartService $cartService, RouterInterface $router, EntityManagerInterface $em)
+    public function __construct(CartService $cartService, RouterInterface $router, EntityManagerInterface $em)
     {
-        $this->security = $security;
         $this->cartService = $cartService;
         $this->router = $router;
         $this->em = $em;
@@ -31,20 +26,17 @@ class PurchaseConfirmationController extends AbstractController
 
     /**
      * @Route("/purchase/confirm", name="purchase_confirm")
+     * @IsGranted("ROLE_USER")
      */
     public function confirm()
         {
-            //sécurité
-            $user = $this->security->getUser();
-            if(!$user) {
-                throw new AccessDeniedException("Vous devez être connecté");
-            }
+            $user = $this->getUser();
 
             //sécurité
             $cartItems = $this->cartService->getDetailedCartItems();
             if(count($cartItems) === 0) {
                 $this->addFlash('warning', 'veuillez ajouter une offre à votre panier avant de le confirmer');
-                return new RedirectResponse($this->router->generate('cart_show'));
+                return $this->redirectToRoute('cart_show');
             }
 
             //Création d'une commande
@@ -57,7 +49,8 @@ class PurchaseConfirmationController extends AbstractController
                 ->setFullName($user->getFullName())
                 ->setEmail($user->getEmail())
                 ->setPurchasedAt(new \DateTimeImmutable())
-                ->setTotal($this->cartService->getTotal());
+                ->setTotal($this->cartService->getTotal())
+                ->setStatus(Purchase::STATUS_PAID);
 
             $this->em->persist($purchase);
 
@@ -79,9 +72,9 @@ class PurchaseConfirmationController extends AbstractController
 
             $this->cartService->clearCart();
 
-            $this->addFlash('success', "la commande a bien été enregistrée");
-            return new RedirectResponse($this->router->generate('purchase_index'));
+            $this->addFlash('success', "la commande a bien été payée et enregistrée");
 
+            return $this->redirectToRoute("purchase_index");
         }
     
 }

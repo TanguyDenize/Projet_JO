@@ -21,7 +21,8 @@
 				{% for item in items %}
 					<tr>
 						<td>{{ item.offer.name }}</td>
-						<td>{{ item.offer.price }}</td>
+						<td>{{ item.offer.price / 100 }}
+							€</td>
 						<td>
 							<a href="{{ path("cart_decrement", {'id': item.offer.id}) }}" class="btn btn-sm btn-primary">
 								<i class="fas fa-minus"></i>
@@ -31,7 +32,8 @@
 								<i class="fas fa-plus"></i>
 							</a>
 						</td>
-						<td>{{ item.total }}</td>
+						<td>{{ item.total / 100 }}
+							€</td>
 						<td>
 							<a href="{{ path("cart_delete", {'id': item.offer.id}) }}" class="btn btn-sm btn-danger">
 								<i class="fa-solid fa-xmark"></i>
@@ -43,12 +45,17 @@
 			<tfoot>
 				<tr>
 					<td colspan="3">Total :</td>
-					<td colspan="2">{{ total }}</td>
+					<td colspan="2">{{ total / 100 }}
+						€</td>
 				</tr>
 			</tfoot>
 		</table>
 		<br>
 		{% if app.user %}
+			<br>
+			<h2>Vos informations de paiement</h2>
+			<p>Dans le cadre de ce projet aucune information n'est à remplir, cliquer sur le bouton confirmera la commande et la passera en statut "payée".</p>
+			<br>
 			<form action="{{ path('purchase_confirm') }}" method="post" class="text-right">
 				<button type="submit" class="btn btn-success">Valider la commande</button>
 			</form>

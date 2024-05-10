@@ -18,6 +18,17 @@ use Symfony\Component\HttpFoundation\Request;
 class OfferController extends  AbstractController{
 
     /**
+     * @Route("/admin/offer", name="select_edit")
+     */
+    public function editAction(Request $request)
+    {
+        $offerId = $request->request->get('Offres');
+    
+        return $this->redirectToRoute('offer_edit', ['id' => $offerId]);
+    }
+    
+
+    /**
      * @Route("/admin/offer/{id}/edit", name="offer_edit")
      */
     public function edit($id, OfferRepository $offerRepository, Request $request, EntityManagerInterface $em){
@@ -37,7 +48,7 @@ class OfferController extends  AbstractController{
 
         $formView = $form->createView();
 
-        return $this->render('edit.html.twig', [
+        return $this->render('offer/edit.html.twig', [
             'offer' => $offer,
             'formView' => $formView
         ]);
@@ -66,7 +77,7 @@ class OfferController extends  AbstractController{
     
         $formView = $form->createView();
 
-        return $this->render('create.html.twig', [
+        return $this->render('offer/create.html.twig', [
             'formView' => $formView
         ]);
     }
