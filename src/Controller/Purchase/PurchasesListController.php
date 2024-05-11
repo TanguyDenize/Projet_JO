@@ -38,7 +38,8 @@ class PurchasesListController extends AbstractController
 
         // Affichage des commandes de l'utilisateur qui est connecté
         return $this->render('purchase/index.html.twig', [ 
-            'purchases' => $user->getPurchases()
+            'purchases' => $user->getPurchases(),
+            'tickets' => $user->getTickets()
         ]);
     }
 }

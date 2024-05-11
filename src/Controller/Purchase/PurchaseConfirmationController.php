@@ -2,6 +2,7 @@
 
 namespace App\Controller\Purchase;
 
+use App\Entity\Ticket;
 use App\Entity\Purchase;
 use App\Cart\CartService;
 use App\Entity\PurchaseItem;
@@ -56,17 +57,27 @@ class PurchaseConfirmationController extends AbstractController
 
             // Lien avec les produits du panier
             foreach($this->cartService->getDetailedCartItems() as $cartItem) {
-                $purchaseItem = new PurchaseItem;
-                $purchaseItem->setPurchase($purchase)
-                    ->setOffer($cartItem->offer)
-                    ->setOfferName($cartItem->offer->getName())
-                    ->setQuantity($cartItem->qty)
-                    ->setOfferPrice($cartItem->offer->getPrice())
-                    ->setTotal($cartItem->getTotal());
-
-                $this->em->persist($purchaseItem);
+                for ($i = 0; $i < $cartItem->qty; $i++) {
+                    $purchaseItem = new PurchaseItem;
+                    $purchaseItem->setPurchase($purchase)
+                        ->setOffer($cartItem->offer)
+                        ->setOfferName($cartItem->offer->getName())
+                        ->setQuantity($cartItem->qty)
+                        ->setOfferPrice($cartItem->offer->getPrice())
+                        ->setTotal($cartItem->getTotal());
+                    
+                    /** @var Ticket */
+                    $ticket = new Ticket($user);
+                    $ticket->setOffer($cartItem->offer) // Associer le ticket à l'offre du panier
+                        ->setPurchase($purchase)
+                        ->setOfferName($cartItem->offer->getName())
+                        ->setFullName($user->getFullName());
+                    
+                    $this->em->persist($purchaseItem);
+                    $this->em->persist($ticket); // Enregistrer le ticket dans la base de données
+                }
+        
             }
-
 
             $this->em->flush();
 

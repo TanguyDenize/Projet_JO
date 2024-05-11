@@ -31,9 +31,14 @@ class Offer
     #[ORM\OneToMany(targetEntity: PurchaseItem::class, mappedBy: 'offer')]
     private Collection $purchaseItems;
 
+    #[ORM\OneToMany(targetEntity: Ticket::class, mappedBy: 'offer')]
+    private Collection $tickets;
+
+
     public function __construct()
     {
         $this->purchaseItems = new ArrayCollection();
+        $this->tickets = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -113,6 +118,36 @@ class Offer
             // set the owning side to null (unless already changed)
             if ($purchaseItem->getOffer() === $this) {
                 $purchaseItem->setOffer(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Ticket>
+     */
+    public function getTickets(): Collection
+    {
+        return $this->tickets;
+    }
+
+    public function addTicket(Ticket $ticket): static
+    {
+        if (!$this->tickets->contains($ticket)) {
+            $this->tickets->add($ticket);
+            $ticket->setOffer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTicket(Ticket $ticket): static
+    {
+        if ($this->tickets->removeElement($ticket)) {
+            // set the owning side to null (unless already changed)
+            if ($ticket->getOffer() === $this) {
+                $ticket->setOffer(null);
             }
         }
 

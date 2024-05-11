@@ -14,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class OfferController extends  AbstractController{
 
@@ -80,5 +81,27 @@ class OfferController extends  AbstractController{
         return $this->render('offer/create.html.twig', [
             'formView' => $formView
         ]);
+    }
+
+    /**
+     * @Route("/admin/offer/delete", name="offer_delete")
+     */
+    public function delete(OfferRepository $offerRepository, EntityManagerInterface $em, Request $request): Response
+    {
+        $offerId = $request->request->get('Offres');
+
+        $offer = $offerRepository->find($offerId);
+
+        if (!$offer) {
+            throw $this->createNotFoundException("L'offre n'existe pas");
+        }
+
+        $em->remove($offer);
+        $em->flush();
+
+        $this->addFlash('success', "L'offre a bien été supprimée");
+
+        // Rediriger vers une page appropriée après la suppression, comme la liste des offres
+        return $this->redirectToRoute('admin');
     }
 }

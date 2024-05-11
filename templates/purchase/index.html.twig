@@ -24,7 +24,7 @@
 					<td>
 						<ul>
 							{% for item in p.purchaseItems %}
-								<li>{{ item.quantity }}x
+								<li>
 									{{ item.offerName }}
 									({{ item.total / 100}}
 									€)
@@ -34,6 +34,32 @@
 					</td>
 					<td>{{ p.total / 100 }}
 						€</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	<br>
+	<h2>Mes billets</h2>
+
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th scope="col">Offre</th>
+				<th scope="col">n° de commande</th>
+				<th scope="col">QrCode</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for ticket in tickets %}
+				<tr class="table-secondary">
+					<td>{{ticket.offerName}}</td>
+					<td>{{ticket.purchase.id}}</td>
+					<td>
+						<form method="post" action="{{ path('generate_qr_code') }}">
+							<input type="hidden" name="ticket_key" value="{{ ticket.ticketKey }}">
+							<button type="submit" class="btn btn-primary btn-sm">Générer votre e-billet</button>
+						</form>
+					</td>
 				</tr>
 			{% endfor %}
 		</tbody>

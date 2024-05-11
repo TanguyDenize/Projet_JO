@@ -29,16 +29,4 @@ class HomeController extends  AbstractController{
             'offers' => $offers
         ]);
     }
-
-    /**
-     * @Route("/admin", name="admin")
-     */
-    public function admin(OfferRepository $offerRepository)
-    {
-        $offers = $offerRepository->findBy([], []);
-        
-        return $this->render('admin.html.twig', [
-            'offers' => $offers
-        ]);
-    }
 }
