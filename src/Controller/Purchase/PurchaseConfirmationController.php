@@ -9,7 +9,6 @@ use App\Entity\PurchaseItem;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PurchaseConfirmationController extends AbstractController
@@ -27,7 +26,6 @@ class PurchaseConfirmationController extends AbstractController
 
     /**
      * @Route("/purchase/confirm", name="purchase_confirm")
-     * @IsGranted("ROLE_USER")
      */
     public function confirm()
         {
