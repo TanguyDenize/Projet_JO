@@ -7,23 +7,23 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 class CartService {
 
-    protected $requestStack;  // Modifié : Injection de RequestStack
+    protected $requestStack;  
     protected $offerRepository;
 
     public function __construct(RequestStack $requestStack, OfferRepository $offerRepository)
     {
-        $this->requestStack = $requestStack;  // Modifié : Assignation de RequestStack
+        $this->requestStack = $requestStack;  
         $this->offerRepository = $offerRepository;
     }
 
-    private function getSession()  // Ajouté : Méthode pour obtenir la session
+    private function getSession()  
     {
         return $this->requestStack->getSession();
     }
 
     public function add(int $id)
     {
-        $session = $this->getSession();  // Modifié : Utilisation de getSession
+        $session = $this->getSession();  
         $cart = $session->get('cart', []);
 
         if(array_key_exists($id, $cart)){
@@ -37,7 +37,7 @@ class CartService {
 
     public function remove(int $id)
     {
-        $session = $this->getSession();  // Modifié : Utilisation de getSession
+        $session = $this->getSession();  
         $cart = $session->get('cart', []);
 
         unset($cart[$id]);
@@ -47,7 +47,7 @@ class CartService {
 
     public function decrement(int $id)
     {
-        $session = $this->getSession();  // Modifié : Utilisation de getSession
+        $session = $this->getSession();  
         $cart = $session->get('cart', []);
 
         if(!array_key_exists($id, $cart)){
@@ -66,7 +66,7 @@ class CartService {
 
     public function getTotal()
     {
-        $session = $this->getSession();  // Modifié : Utilisation de getSession
+        $session = $this->getSession();  
         $total = 0;
 
         foreach($session->get('cart', []) as $id => $qty) 
@@ -85,7 +85,7 @@ class CartService {
 
     public function getTotalItems()
     {
-        $session = $this->getSession();  // Modifié : Utilisation de getSession
+        $session = $this->getSession();  
         $totalItems = 0;
 
         foreach($session->get('cart', []) as $id => $qty) 
@@ -107,7 +107,7 @@ class CartService {
      */
     public function getDetailedCartItems(): array 
     {
-        $session = $this->getSession();  // Modifié : Utilisation de getSession
+        $session = $this->getSession();  
         $detailedCart = [];
 
         foreach($session->get('cart', []) as $id => $qty) 
@@ -126,7 +126,7 @@ class CartService {
 
     public function clearCart(): void
     {
-        $session = $this->getSession();  // Modifié : Utilisation de getSession
+        $session = $this->getSession();  
         $session->remove('cart');
     }
 }
