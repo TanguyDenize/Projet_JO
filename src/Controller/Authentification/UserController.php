@@ -31,14 +31,11 @@ class UserController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            // Encodez le mot de passe ici si nécessaire
-            // $user->setPassword(...);
 
             $em->persist($user);
             $em->flush();
 
             $this->addFlash("success", "Votre compte à bien été crée, veuillez vous connecter");
-            // Redirigez l'utilisateur après l'inscription
             return $this->redirectToRoute('homepage');
         }
 
